@@ -6,7 +6,6 @@ const Inert = require('inert');
 const Blankie = require('blankie');
 const Scooter = require('scooter');
 const nconf = require('nconf');
-const ngrok = require('ngrok');
 
 const sockets = require('./sockets');
 
@@ -30,7 +29,7 @@ server.register([
   }
 ], (err) => {
   if (err) {
-    console.log(err);
+    return console.log(err);
   }
 
   server.views({
@@ -55,12 +54,13 @@ server.register([Scooter,
       scriptSrc: 'self',
       styleSrc: 'self',
       fontSrc: 'self',
+      mediaSrc: ['self', 'blob:'],
       generateNonces: false
     }
   }
 ], (err) => {
   if (err) {
-    throw err;
+    return console.log(err);
   }
 });
 
@@ -94,7 +94,7 @@ server.route({
 
 server.start((err) => {
   if (err) {
-    throw err.msg;
+    return console.log(err.msg);
   }
 
   io = SocketIO.listen(server.listener);

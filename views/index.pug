@@ -5,11 +5,18 @@ html
     meta(charset='utf-8')
     meta(content='width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', name='viewport')
     meta(content='yes', name='apple-mobile-web-app-capable')
-    link(rel='stylesheet', href='//brick.a.ssl.fastly.net/Source+Code+Pro:300')
     link(rel='stylesheet', href='/main.css')
 
   body
     #wrapper
+      canvas
+      img#self
+      video
       h1 test
       #info
+      #nodes
+      form
+        input#connector(type='text', placeholder='https://<id>.ngrok.io')
+        button#connector-btn add
+      button#snap(type='button') [snap]
     script(src='/app.bundle.js')

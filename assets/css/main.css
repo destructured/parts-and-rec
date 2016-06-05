@@ -72,21 +72,65 @@ table {
 
 body {
   font-family: 'Junction';
-  background: linear-gradient(#4fddd5 0%, #a4aff0 100%);
+  background: linear-gradient(#092de8 0%, #de376b 100%);
   background-attachment: fixed;
 }
 
 #wrapper {
-  margin: 20px;
-}
-
-#info {
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #0f0;
+  display: flex;
 }
 
 h1, h2 {
   font-size: 3rem;
   font-weight: bold;
+  margin: 20px;
+}
+
+video {
+  display: none;
+  width: 50px;
+}
+
+button {
+  border: 1px solid rgba(1, 1, 1, 0.2);
+}
+
+#snap, input, #info {
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+}
+
+#snap, form, #info {
+  background-color: #f0f;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  z-index: 2;
+}
+
+#info {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  max-width: 300px;
+  top: 6rem;
+}
+
+form {
+  top: 3rem;
+}
+
+canvas {
+  display: none;
+}
+
+#self {
+  flex: 1;
+  width: 100%;
+  position: fixed;
+  opacity: 0.4;
+  transition: opacity 2s;
+}
+
+#self:hover {
+  opacity: 0.95;
+  transition: opacity 2s;
 }

@@ -5,22 +5,45 @@ const ngrok = require('ngrok');
 
 nconf.argv().env().file({ file: 'config.json' });
 
+const token = nconf.get('ngrokToken') || false;
+const subdomain = nconf.get('subdomain') || false;
+
 let ngrokURL;
+
+let opts = {
+  addr: nconf.get('port')
+};
+
+if (token) {
+  opts.authtoken = token;
+}
+
+if (subdomain) {
+  opts.subdomain = subdomain;
+}
+
+function setOnline() {
+  ngrok.connect(opts, (err, url) => {
+    if (err) {
+      console.log(err);
+      if (err.error_code === 103) {
+        return;
+      }
+
+      ngrok.kill();
+      setOnline();
+    }
+
+    ngrokURL = url;
+  });
+}
+
+setOnline();
 
 exports.actions = function (io, socket) {
   socket.on('join', (data) => {
-    console.log('joined');
-  });
+    console.log('joined ', ngrokURL);
 
-  socket.on('register', (data) => {
-    ngrok.kill();
-    ngrok.connect(nconf.get('port'), (err, url) => {
-      if (err) {
-        return console.log(err);
-      }
-
-      ngrokURL = url;
-      io.sockets.emit('registered', ngrokURL);
-    });
+    io.sockets.emit('registered', ngrokURL);
   });
 };
