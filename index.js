@@ -8,12 +8,13 @@ const Scooter = require('scooter');
 const nconf = require('nconf');
 const ngrok = require('ngrok');
 
+const sockets = require('./sockets');
+
 nconf.argv().env().file({ file: 'config.json' });
 
 const server = new Hapi.Server();
 
 let io;
-let ngrokURL;
 
 server.connection({
   host: nconf.get('domain'),
@@ -96,21 +97,9 @@ server.start((err) => {
     throw err.msg;
   }
 
-  ngrok.connect(nconf.get('port'), (err, url) => {
-    if (err) {
-      throw err.msg;
-    }
-
-    ngrokURL = url;
-    console.log('connected and online: ', ngrokURL);
-  });
-
   io = SocketIO.listen(server.listener);
 
   io.on('connection', (socket) => {
-    socket.on('join', (data) => {
-      console.log('joined');
-
-    });
+    sockets.actions(io, socket);
   });
 });

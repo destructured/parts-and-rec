@@ -80,6 +80,12 @@ body {
   margin: 20px;
 }
 
+#info {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #0f0;
+}
+
 h1, h2 {
   font-size: 3rem;
   font-weight: bold;
