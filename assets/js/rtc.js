@@ -37,20 +37,22 @@ function noise() {
   let idata = ctx.getImageData(0, 0, width, height);
   let buffer32 = new Uint32Array(idata.data.buffer);
 
-  for (let i = 0; i < buffer32.length; i += 1) {
-    buffer32[i] = 125 |
-    buffer32[i + 1] << 11 |
-    buffer32[i + 2] |
-    buffer32[i + 3] << 2;
+  let randSkip = Math.floor(Math.random() * (5 - 3) + 3);
+
+  for (let i = 0; i < buffer32.length; i += randSkip) {
+    buffer32[i] = 24 |
+    buffer32[i] << 16 |
+    buffer32[i] << 8 |
+    buffer32[i + 20];
   }
 
   for (let i = 0; i < buffer32.length; i += 2) {
     let a = (buffer32[i] & (0xFF << 24)) >> 24;
-    let b = (buffer32[i] & (0xFF << 66));
-    let g = (buffer32[i] & (0xFF << 84));
+    let b = (buffer32[i] & (0xFF << 36));
+    let g = (buffer32[i] & (0xFF << 44));
     let r = (buffer32[i] & (0xFF << 11)) >> 11;
 
-    buffer32[i] = (a & 0xff) << 24 | (b & 0xff) << 66 | (b & 0xff) << 66 | r;
+    buffer32[i] = (a & 0xff) << 24 | (b & 0xff) << 36 | (b & 0xff) << 44 | g;
   }
 
   ctx.putImageData(idata, 0, 0);
