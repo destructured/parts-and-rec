@@ -100,7 +100,7 @@ button {
   font-size: 1.2rem;
 }
 
-#snap, form, #info {
+#snap, .add, #info {
   background-color: #f0f;
   position: fixed;
   top: 5px;
@@ -114,7 +114,7 @@ button {
   top: 6rem;
 }
 
-form {
+.add {
   top: 3rem;
 }
 
@@ -133,4 +133,20 @@ canvas {
 #self:hover {
   opacity: 0.95;
   transition: opacity 2s;
+}
+
+#connections {
+  position: absolute;
+  top: 10rem;
+  right: 5px;
+  z-index: 4;
+  max-width: 300px;
+  overflow: auto;
+  min-height: 200px;
+}
+
+#connections a {
+  display: inline-block;
+  margin: 5px 0;
+  color: #fff;
 }
